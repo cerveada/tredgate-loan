@@ -5,7 +5,6 @@
 import { test } from '@playwright/test'
 import { ApplicationPage } from './page-objects/application-page'
 import { VALID_LOAN_DATA } from './test-data/loan-data'
-import { TEXT } from './test-data/text-library'
 import { formatCurrency } from './helpers/test-helpers'
 
 test.describe('Loan Deletion', () => {
