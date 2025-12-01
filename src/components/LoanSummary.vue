@@ -59,10 +59,10 @@ function formatCurrency(value: number): string {
 
 <style scoped>
 .loan-summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .stat-card {
@@ -71,8 +71,6 @@ function formatCurrency(value: number): string {
   box-shadow: var(--shadow);
   padding: 1rem 1.5rem;
   text-align: center;
-  min-width: 120px;
-  flex: 1;
 }
 
 .stat-value {
