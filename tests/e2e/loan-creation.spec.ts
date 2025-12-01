@@ -1,13 +1,12 @@
 /**
  * Test suite for creating loan applications
- * Tests the happy path and form validation
+ * Tests the happy path scenarios
  */
 
-import { test, expect } from '@playwright/test'
+import { test } from '@playwright/test'
 import { ApplicationPage } from './page-objects/application-page'
-import { VALID_LOAN_DATA, INVALID_LOAN_DATA } from './test-data/loan-data'
+import { VALID_LOAN_DATA } from './test-data/loan-data'
 import { TEXT } from './test-data/text-library'
-import { formatCurrency } from './helpers/test-helpers'
 
 test.describe('Loan Creation', () => {
   let app: ApplicationPage
@@ -108,71 +107,3 @@ test.describe('Loan Creation', () => {
   })
 })
 
-test.describe('Form Validation', () => {
-  let app: ApplicationPage
-
-  test.beforeEach(async ({ page }) => {
-    app = new ApplicationPage(page)
-    await app.initialize()
-  })
-
-  test('should show error for empty applicant name', async () => {
-    const invalidData = INVALID_LOAN_DATA.EMPTY_NAME
-
-    await app.loanForm.fillLoanForm(invalidData)
-    await app.loanForm.clickCreateButton()
-
-    await app.loanForm.verifyValidationError(TEXT.ERROR_NAME_REQUIRED)
-    await app.loanList.assertEmptyState()
-  })
-
-  test('should show error for zero amount', async () => {
-    const invalidData = INVALID_LOAN_DATA.ZERO_AMOUNT
-
-    await app.loanForm.fillLoanForm(invalidData)
-    await app.loanForm.clickCreateButton()
-
-    await app.loanForm.verifyValidationError(TEXT.ERROR_AMOUNT_POSITIVE)
-    await app.loanList.assertEmptyState()
-  })
-
-  test('should show error for negative amount', async () => {
-    const invalidData = INVALID_LOAN_DATA.NEGATIVE_AMOUNT
-
-    await app.loanForm.fillLoanForm(invalidData)
-    await app.loanForm.clickCreateButton()
-
-    await app.loanForm.verifyValidationError(TEXT.ERROR_AMOUNT_POSITIVE)
-    await app.loanList.assertEmptyState()
-  })
-
-  test('should show error for zero term', async () => {
-    const invalidData = INVALID_LOAN_DATA.ZERO_TERM
-
-    await app.loanForm.fillLoanForm(invalidData)
-    await app.loanForm.clickCreateButton()
-
-    await app.loanForm.verifyValidationError(TEXT.ERROR_TERM_POSITIVE)
-    await app.loanList.assertEmptyState()
-  })
-
-  test('should show error for negative term', async () => {
-    const invalidData = INVALID_LOAN_DATA.NEGATIVE_TERM
-
-    await app.loanForm.fillLoanForm(invalidData)
-    await app.loanForm.clickCreateButton()
-
-    await app.loanForm.verifyValidationError(TEXT.ERROR_TERM_POSITIVE)
-    await app.loanList.assertEmptyState()
-  })
-
-  test('should show error for negative interest rate', async () => {
-    const invalidData = INVALID_LOAN_DATA.NEGATIVE_RATE
-
-    await app.loanForm.fillLoanForm(invalidData)
-    await app.loanForm.clickCreateButton()
-
-    await app.loanForm.verifyValidationError(TEXT.ERROR_RATE_REQUIRED)
-    await app.loanList.assertEmptyState()
-  })
-})

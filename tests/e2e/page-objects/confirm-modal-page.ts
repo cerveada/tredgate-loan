@@ -22,8 +22,9 @@ export class ConfirmModalPage extends BasePage {
     this.modal = page.locator('.modal-overlay')
     this.modalTitle = page.locator('.modal-header h3')
     this.modalMessage = page.locator('.modal-body p')
-    this.confirmButton = page.getByRole('button', { name: TEXT.MODAL_CONFIRM })
-    this.cancelButton = page.getByRole('button', { name: TEXT.MODAL_CANCEL })
+    // Scope buttons to the modal to avoid conflicts with page buttons
+    this.confirmButton = this.modal.getByRole('button', { name: TEXT.MODAL_CONFIRM, exact: true })
+    this.cancelButton = this.modal.getByRole('button', { name: TEXT.MODAL_CANCEL })
   }
 
   // Atomic methods
