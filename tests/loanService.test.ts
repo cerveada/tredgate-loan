@@ -5,7 +5,8 @@ import {
   createLoanApplication,
   updateLoanStatus,
   calculateMonthlyPayment,
-  autoDecideLoan
+  autoDecideLoan,
+  deleteLoan
 } from '../src/services/loanService'
 import type { LoanApplication } from '../src/types/loan'
 
@@ -325,6 +326,88 @@ describe('loanService', () => {
       expect(() => autoDecideLoan('non-existent')).toThrow(
         'Loan with id non-existent not found'
       )
+    })
+  })
+
+  describe('deleteLoan', () => {
+    it('successfully deletes an existing loan', () => {
+      const loan1: LoanApplication = {
+        id: 'loan-1',
+        applicantName: 'John Doe',
+        amount: 50000,
+        termMonths: 24,
+        interestRate: 0.08,
+        status: 'pending',
+        createdAt: '2024-01-01T00:00:00.000Z'
+      }
+      const loan2: LoanApplication = {
+        id: 'loan-2',
+        applicantName: 'Jane Smith',
+        amount: 75000,
+        termMonths: 36,
+        interestRate: 0.06,
+        status: 'approved',
+        createdAt: '2024-02-01T00:00:00.000Z'
+      }
+      saveLoans([loan1, loan2])
+
+      deleteLoan('loan-1')
+
+      const loans = getLoans()
+      expect(loans).toHaveLength(1)
+      expect(loans[0]?.id).toBe('loan-2')
+    })
+
+    it('throws error when loan ID is not found', () => {
+      const loan: LoanApplication = {
+        id: 'existing-loan',
+        applicantName: 'Test User',
+        amount: 10000,
+        termMonths: 12,
+        interestRate: 0.05,
+        status: 'pending',
+        createdAt: '2024-01-01T00:00:00.000Z'
+      }
+      saveLoans([loan])
+
+      expect(() => deleteLoan('non-existent-id')).toThrow(
+        'Loan with id non-existent-id not found'
+      )
+    })
+
+    it('updates localStorage correctly after deletion', () => {
+      const loan1: LoanApplication = {
+        id: 'loan-to-delete',
+        applicantName: 'Delete Me',
+        amount: 30000,
+        termMonths: 18,
+        interestRate: 0.07,
+        status: 'pending',
+        createdAt: '2024-03-01T00:00:00.000Z'
+      }
+      const loan2: LoanApplication = {
+        id: 'loan-to-keep',
+        applicantName: 'Keep Me',
+        amount: 40000,
+        termMonths: 24,
+        interestRate: 0.06,
+        status: 'approved',
+        createdAt: '2024-04-01T00:00:00.000Z'
+      }
+      saveLoans([loan1, loan2])
+
+      deleteLoan('loan-to-delete')
+
+      // Verify localStorage was called with the updated array
+      expect(localStorageMock.setItem).toHaveBeenCalledWith(
+        'tredgate_loans',
+        JSON.stringify([loan2])
+      )
+
+      // Verify the loan was actually removed from storage
+      const storedLoans = getLoans()
+      expect(storedLoans).toHaveLength(1)
+      expect(storedLoans[0]?.id).toBe('loan-to-keep')
     })
   })
 })
