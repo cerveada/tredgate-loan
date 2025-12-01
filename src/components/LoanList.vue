@@ -144,7 +144,7 @@ function formatDate(isoDate: string): string {
 
 <style scoped>
 .loan-list {
-  flex: 1;
+  width: 100%;
   min-width: 0;
   overflow-x: auto;
 }
