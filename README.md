@@ -23,6 +23,7 @@ Tredgate Loan is a frontend-only demo application used for training on GitHub Co
 - **TypeScript** - Type-safe JavaScript
 - **Vite** - Fast build tool and dev server
 - **Vitest** - Unit testing framework
+- **Vue Test Utils** - Vue component testing utilities
 - **ESLint** - Code linting
 
 ## Getting Started
@@ -52,9 +53,23 @@ npm run build
 
 ### Testing
 
+Run all tests:
 ```bash
 npm run test
 ```
+
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+View HTML test report:
+```bash
+npm run test
+npx vite preview --outDir test-results
+```
+
+For detailed testing documentation, see [TESTING.md](TESTING.md).
 
 ### Linting
 
