@@ -188,9 +188,9 @@ describe('App.vue', () => {
   })
 
   it('updates LoanList props after approve', async () => {
-    const updatedLoans = [
-      { ...mockLoans[0], status: 'approved' as const },
-      mockLoans[1]
+    const updatedLoans: LoanApplication[] = [
+      { ...mockLoans[0]!, status: 'approved' as const },
+      mockLoans[1]!
     ]
 
     vi.mocked(loanService.getLoans)
@@ -206,9 +206,9 @@ describe('App.vue', () => {
   })
 
   it('updates LoanSummary props after reject', async () => {
-    const updatedLoans = [
-      { ...mockLoans[0], status: 'rejected' as const },
-      mockLoans[1]
+    const updatedLoans: LoanApplication[] = [
+      { ...mockLoans[0]!, status: 'rejected' as const },
+      mockLoans[1]!
     ]
 
     vi.mocked(loanService.getLoans)

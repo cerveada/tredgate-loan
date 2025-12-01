@@ -64,7 +64,7 @@ describe('LoanList.vue', () => {
   it('renders loan data correctly in table', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -90,7 +90,7 @@ describe('LoanList.vue', () => {
   it('formats currency correctly', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -101,7 +101,7 @@ describe('LoanList.vue', () => {
   it('formats percentage correctly', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -112,7 +112,7 @@ describe('LoanList.vue', () => {
   it('formats date correctly', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -123,7 +123,7 @@ describe('LoanList.vue', () => {
   it('calculates and displays monthly payment correctly', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -136,7 +136,7 @@ describe('LoanList.vue', () => {
   it('displays approve button for pending loans', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -148,7 +148,7 @@ describe('LoanList.vue', () => {
   it('displays reject button for pending loans', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -160,7 +160,7 @@ describe('LoanList.vue', () => {
   it('displays auto-decide button for pending loans', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -172,7 +172,7 @@ describe('LoanList.vue', () => {
   it('does not display action buttons for approved loans', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[1]]
+        loans: [mockLoans[1]!]
       }
     })
 
@@ -184,7 +184,7 @@ describe('LoanList.vue', () => {
   it('does not display action buttons for rejected loans', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[2]]
+        loans: [mockLoans[2]!]
       }
     })
 
@@ -196,7 +196,7 @@ describe('LoanList.vue', () => {
   it('emits approve event when approve button clicked', async () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -209,7 +209,7 @@ describe('LoanList.vue', () => {
   it('emits reject event when reject button clicked', async () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -222,7 +222,7 @@ describe('LoanList.vue', () => {
   it('emits autoDecide event when auto-decide button clicked', async () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -235,7 +235,7 @@ describe('LoanList.vue', () => {
   it('applies correct CSS class for pending status', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[0]]
+        loans: [mockLoans[0]!]
       }
     })
 
@@ -247,7 +247,7 @@ describe('LoanList.vue', () => {
   it('applies correct CSS class for approved status', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[1]]
+        loans: [mockLoans[1]!]
       }
     })
 
@@ -259,7 +259,7 @@ describe('LoanList.vue', () => {
   it('applies correct CSS class for rejected status', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[2]]
+        loans: [mockLoans[2]!]
       }
     })
 
@@ -269,9 +269,9 @@ describe('LoanList.vue', () => {
   })
 
   it('renders multiple action buttons for each pending loan', () => {
-    const pendingLoans = [
-      { ...mockLoans[0], id: '1' },
-      { ...mockLoans[0], id: '2' }
+    const pendingLoans: LoanApplication[] = [
+      { ...mockLoans[0]!, id: '1' },
+      { ...mockLoans[0]!, id: '2' }
     ]
     
     const wrapper = mount(LoanList, {
@@ -292,7 +292,7 @@ describe('LoanList.vue', () => {
   it('displays no-actions indicator for non-pending loans', () => {
     const wrapper = mount(LoanList, {
       props: {
-        loans: [mockLoans[1]]
+        loans: [mockLoans[1]!]
       }
     })
 

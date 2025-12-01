@@ -37,11 +37,11 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[0].text()).toBe('0')
-    expect(statValues[1].text()).toBe('0')
-    expect(statValues[2].text()).toBe('0')
-    expect(statValues[3].text()).toBe('0')
-    expect(statValues[4].text()).toBe('$0')
+    expect(statValues[0]!.text()).toBe('0')
+    expect(statValues[1]!.text()).toBe('0')
+    expect(statValues[2]!.text()).toBe('0')
+    expect(statValues[3]!.text()).toBe('0')
+    expect(statValues[4]!.text()).toBe('$0')
   })
 
   it('calculates total applications correctly', () => {
@@ -56,7 +56,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[0].text()).toBe('3')
+    expect(statValues[0]!.text()).toBe('3')
   })
 
   it('calculates pending count correctly', () => {
@@ -71,7 +71,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[1].text()).toBe('2')
+    expect(statValues[1]!.text()).toBe('2')
   })
 
   it('calculates approved count correctly', () => {
@@ -86,7 +86,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[2].text()).toBe('2')
+    expect(statValues[2]!.text()).toBe('2')
   })
 
   it('calculates rejected count correctly', () => {
@@ -101,7 +101,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[3].text()).toBe('3')
+    expect(statValues[3]!.text()).toBe('3')
   })
 
   it('calculates total approved amount correctly', () => {
@@ -116,7 +116,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[4].text()).toBe('$125,000')
+    expect(statValues[4]!.text()).toBe('$125,000')
   })
 
   it('does not include pending loans in total approved amount', () => {
@@ -130,7 +130,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[4].text()).toBe('$50,000')
+    expect(statValues[4]!.text()).toBe('$50,000')
   })
 
   it('does not include rejected loans in total approved amount', () => {
@@ -144,7 +144,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[4].text()).toBe('$50,000')
+    expect(statValues[4]!.text()).toBe('$50,000')
   })
 
   it('formats currency without decimals for total approved amount', () => {
@@ -158,7 +158,7 @@ describe('LoanSummary.vue', () => {
 
     const statValues = wrapper.findAll('.stat-value')
     // Should be formatted without decimals
-    expect(statValues[4].text()).toBe('$50,000')
+    expect(statValues[4]!.text()).toBe('$50,000')
   })
 
   it('applies correct CSS class to pending stat card', () => {
@@ -169,7 +169,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statCards = wrapper.findAll('.stat-card')
-    expect(statCards[1].classes()).toContain('pending')
+    expect(statCards[1]!.classes()).toContain('pending')
   })
 
   it('applies correct CSS class to approved stat card', () => {
@@ -180,7 +180,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statCards = wrapper.findAll('.stat-card')
-    expect(statCards[2].classes()).toContain('approved')
+    expect(statCards[2]!.classes()).toContain('approved')
   })
 
   it('applies correct CSS class to rejected stat card', () => {
@@ -191,7 +191,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statCards = wrapper.findAll('.stat-card')
-    expect(statCards[3].classes()).toContain('rejected')
+    expect(statCards[3]!.classes()).toContain('rejected')
   })
 
   it('applies correct CSS class to amount stat card', () => {
@@ -202,7 +202,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statCards = wrapper.findAll('.stat-card')
-    expect(statCards[4].classes()).toContain('amount')
+    expect(statCards[4]!.classes()).toContain('amount')
   })
 
   it('handles large total approved amounts correctly', () => {
@@ -216,7 +216,7 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[4].text()).toBe('$1,999,999')
+    expect(statValues[4]!.text()).toBe('$1,999,999')
   })
 
   it('reactively updates stats when loans prop changes', async () => {
@@ -229,8 +229,8 @@ describe('LoanSummary.vue', () => {
     })
 
     let statValues = wrapper.findAll('.stat-value')
-    expect(statValues[0].text()).toBe('1')
-    expect(statValues[1].text()).toBe('1')
+    expect(statValues[0]!.text()).toBe('1')
+    expect(statValues[1]!.text()).toBe('1')
 
     // Update props
     await wrapper.setProps({
@@ -241,10 +241,10 @@ describe('LoanSummary.vue', () => {
     })
 
     statValues = wrapper.findAll('.stat-value')
-    expect(statValues[0].text()).toBe('2')
-    expect(statValues[1].text()).toBe('1')
-    expect(statValues[2].text()).toBe('1')
-    expect(statValues[4].text()).toBe('$50,000')
+    expect(statValues[0]!.text()).toBe('2')
+    expect(statValues[1]!.text()).toBe('1')
+    expect(statValues[2]!.text()).toBe('1')
+    expect(statValues[4]!.text()).toBe('$50,000')
   })
 
   it('displays correct stats for mixed loan statuses', () => {
@@ -263,11 +263,11 @@ describe('LoanSummary.vue', () => {
     })
 
     const statValues = wrapper.findAll('.stat-value')
-    expect(statValues[0].text()).toBe('7') // Total
-    expect(statValues[1].text()).toBe('2') // Pending
-    expect(statValues[2].text()).toBe('3') // Approved
-    expect(statValues[3].text()).toBe('2') // Rejected
-    expect(statValues[4].text()).toBe('$120,000') // Total Approved Amount (30k + 40k + 50k)
+    expect(statValues[0]!.text()).toBe('7') // Total
+    expect(statValues[1]!.text()).toBe('2') // Pending
+    expect(statValues[2]!.text()).toBe('3') // Approved
+    expect(statValues[3]!.text()).toBe('2') // Rejected
+    expect(statValues[4]!.text()).toBe('$120,000') // Total Approved Amount (30k + 40k + 50k)
   })
 
   it('renders stat labels with correct text', () => {
@@ -279,11 +279,11 @@ describe('LoanSummary.vue', () => {
 
     const statLabels = wrapper.findAll('.stat-label')
     // Labels are displayed as-is, CSS handles uppercase transformation
-    expect(statLabels[0].text()).toBe('Total Applications')
-    expect(statLabels[1].text()).toBe('Pending')
-    expect(statLabels[2].text()).toBe('Approved')
-    expect(statLabels[3].text()).toBe('Rejected')
-    expect(statLabels[4].text()).toBe('Total Approved')
+    expect(statLabels[0]!.text()).toBe('Total Applications')
+    expect(statLabels[1]!.text()).toBe('Pending')
+    expect(statLabels[2]!.text()).toBe('Approved')
+    expect(statLabels[3]!.text()).toBe('Rejected')
+    expect(statLabels[4]!.text()).toBe('Total Approved')
   })
 
   it('renders all stat cards in a flex layout', () => {
