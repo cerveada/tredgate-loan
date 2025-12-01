@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { LoanApplication } from '../types/loan'
 import { calculateMonthlyPayment } from '../services/loanService'
+import ConfirmModal from './ConfirmModal.vue'
 
 defineProps<{
   loans: LoanApplication[]
@@ -13,10 +15,25 @@ const emit = defineEmits<{
   delete: [id: string]
 }>()
 
+const isModalOpen = ref(false)
+const selectedLoan = ref<{ id: string; name: string } | null>(null)
+
 function handleDelete(id: string, applicantName: string) {
-  if (confirm(`Are you sure you want to delete the loan application for ${applicantName}?`)) {
-    emit('delete', id)
+  selectedLoan.value = { id, name: applicantName }
+  isModalOpen.value = true
+}
+
+function confirmDelete() {
+  if (selectedLoan.value) {
+    emit('delete', selectedLoan.value.id)
   }
+  isModalOpen.value = false
+  selectedLoan.value = null
+}
+
+function cancelDelete() {
+  isModalOpen.value = false
+  selectedLoan.value = null
 }
 
 function formatCurrency(value: number): string {
@@ -102,11 +119,11 @@ function formatDate(isoDate: string): string {
                 ⚡
               </button>
               <button
-                class="action-btn danger"
+                class="action-btn delete-btn"
                 @click="handleDelete(loan.id, loan.applicantName)"
                 title="Delete"
               >
-                🗑️
+                <span class="material-symbols-outlined">delete</span>
               </button>
               <span v-if="loan.status !== 'pending'" class="no-actions">—</span>
             </td>
@@ -114,6 +131,14 @@ function formatDate(isoDate: string): string {
         </tbody>
       </table>
     </div>
+
+    <ConfirmModal
+      :is-open="isModalOpen"
+      title="Delete Loan Application"
+      :message="`Are you sure you want to delete the loan application for ${selectedLoan?.name}? This action cannot be undone.`"
+      @confirm="confirmDelete"
+      @cancel="cancelDelete"
+    />
   </div>
 </template>
 
@@ -146,6 +171,26 @@ function formatDate(isoDate: string): string {
 
 .action-btn:last-child {
   margin-right: 0;
+}
+
+.delete-btn {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.delete-btn:hover {
+  background-color: #f8f9fa;
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.delete-btn .material-symbols-outlined {
+  font-size: 1.25rem;
 }
 
 .no-actions {
