@@ -2,17 +2,6 @@ name: Playwright Tests
 
 on:
   workflow_dispatch:
-    inputs:
-      browser:
-        description: 'Browser to run tests on'
-        required: false
-        default: 'chromium'
-        type: choice
-        options:
-          - chromium
-          - firefox
-          - webkit
-          - all
 
 jobs:
   test:

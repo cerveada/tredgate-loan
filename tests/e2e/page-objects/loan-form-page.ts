@@ -3,7 +3,7 @@
  * Handles interactions with the loan application form
  */
 
-import { type Page, type Locator, test } from '@playwright/test'
+import { type Page, type Locator, test, expect } from '@playwright/test'
 import { BasePage } from './base-page'
 import { TEXT } from '../test-data/text-library'
 import type { LoanTestData } from '../test-data/loan-data'
@@ -87,10 +87,16 @@ export class LoanFormPage extends BasePage {
    * Assert form fields are empty
    */
   async assertFormIsEmpty(): Promise<void> {
-    await this.assertHasText(this.applicantNameInput, '', 'Applicant name field')
-    await this.assertHasText(this.amountInput, '', 'Amount field')
-    await this.assertHasText(this.termInput, '', 'Term field')
-    await this.assertHasText(this.interestRateInput, '', 'Interest rate field')
+    await expect(
+      this.applicantNameInput,
+      'Applicant name field should be empty'
+    ).toHaveValue('')
+    await expect(this.amountInput, 'Amount field should be empty').toHaveValue('')
+    await expect(this.termInput, 'Term field should be empty').toHaveValue('')
+    await expect(
+      this.interestRateInput,
+      'Interest rate field should be empty'
+    ).toHaveValue('')
   }
 
   // Grouped action methods with test.step
